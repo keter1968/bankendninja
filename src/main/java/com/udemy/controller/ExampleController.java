@@ -5,9 +5,12 @@
  */
 package com.udemy.controller;
 
+import com.udemy.component.ExampleComponent;
 import com.udemy.model.Person;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +28,10 @@ public class ExampleController {
 
   public static final String EXAMPLE_VIEW = "example";
 
+  @Autowired
+  @Qualifier("exampleComponent")
+  private ExampleComponent exampleComponent;
+
   // Primera forma
 
   @GetMapping("/exampleString")
@@ -32,6 +39,7 @@ public class ExampleController {
 
 //    model.addAttribute("name", "Iván");
 //    model.addAttribute("person", new Person("Iván", 49));
+    exampleComponent.sayHello();
     model.addAttribute("people", getPeople());
     return EXAMPLE_VIEW;
   }
