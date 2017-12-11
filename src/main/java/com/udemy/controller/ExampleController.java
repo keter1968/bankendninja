@@ -7,6 +7,7 @@ package com.udemy.controller;
 
 import com.udemy.component.ExampleComponent;
 import com.udemy.model.Person;
+import com.udemy.service.ExampleService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class ExampleController {
   public static final String EXAMPLE_VIEW = "example";
 
   @Autowired
+  @Qualifier("exampleService")
+  private ExampleService exampleService;
+
+  @Autowired
   @Qualifier("exampleComponent")
   private ExampleComponent exampleComponent;
 
@@ -40,7 +45,7 @@ public class ExampleController {
 //    model.addAttribute("name", "Iván");
 //    model.addAttribute("person", new Person("Iván", 49));
     exampleComponent.sayHello();
-    model.addAttribute("people", getPeople());
+    model.addAttribute("people", exampleService.getListPeople());
     return EXAMPLE_VIEW;
   }
 
@@ -52,19 +57,9 @@ public class ExampleController {
     ModelAndView mav = new ModelAndView(EXAMPLE_VIEW);
 //    mav.addObject("name", "Alejandro");
 //    mav.addObject("person", new Person("Alejandro", 32));
-    mav.addObject("people", getPeople());
+    mav.addObject("people", exampleService.getListPeople());
     return mav;
   }
 
-  private List<Person> getPeople() {
-    List<Person> people = new ArrayList<>();
-    people.add(new Person("Alejandro", 32));
-    people.add(new Person("Beatriz", 16));
-    people.add(new Person("Natalia", 28));
-    people.add(new Person("Alberto", 47));
-    people.add(new Person("Juan", 8));
-
-    return people;
-  }
 
 }

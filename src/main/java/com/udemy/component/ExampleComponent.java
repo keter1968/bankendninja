@@ -11,6 +11,7 @@ public class ExampleComponent {
 
 
   public void sayHello() {
+
     LOG.info("Hello from ExampleComponent");
   }
 }
