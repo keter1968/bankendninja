@@ -5,6 +5,10 @@
  */
 package com.udemy.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * @author <a href="mendezi@colpatria.com">Ivan Alejandro Mendez Suarez</a>
  * @version 3.0.0
@@ -12,7 +16,12 @@ package com.udemy.model;
  */
 public class Person {
 
+  @NotNull
+  @Size(min = 2, max = 10)
   private String name;
+
+  @NotNull
+  @Min(18)
   private int age;
 
   public String getName() {
