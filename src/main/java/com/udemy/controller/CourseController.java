@@ -28,8 +28,9 @@ public class CourseController {
   @GetMapping("/listcourses")
   public ModelAndView listAllCourses() {
 
-    LOG.info("Call : " +  "listAllCourses()");
+    LOG.info("Call: " +  "listAllCourses()");
     ModelAndView mav = new ModelAndView(COURSES_VIEW);
+    mav.addObject("course", new Course());
     mav.addObject("courses", courseService.listAllCourse());
     return mav;
   }
@@ -37,9 +38,9 @@ public class CourseController {
   @PostMapping("/addcourse")
   public String addCourse(@ModelAttribute("course")Course course) {
 
-    LOG.info("Call : " +  "addCourse()" + " -- Param: " + course.toString());
+    LOG.info("Call: " +  "addCourse()" + " -- Param: " + course.toString());
     courseService.addCourse(course);
-    return "redirect:/courses/listCourses";
+    return "redirect:/courses/listcourses";
   }
 
 }
