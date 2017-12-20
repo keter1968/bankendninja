@@ -32,13 +32,15 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public int removeCourse(int id) {
-    courseJpaRepository.delete(id);
-    return 0;
+  public Course updateCourse(Course course) {
+    LOG.info("Call: " + "updateCourse()");
+    return courseJpaRepository.save(course);
   }
 
   @Override
-  public Course updateCourse(Course course) {
-    return courseJpaRepository.save(course);
+  public int removeCourse(int id) {
+    LOG.info("Call: " + "removeCourse()");
+    courseJpaRepository.delete(id);
+    return 0;
   }
 }
