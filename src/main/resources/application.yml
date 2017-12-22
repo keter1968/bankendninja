@@ -2,8 +2,8 @@
 spring:
   datasource:
     url: jdbc:jtds:sqlserver://localhost:1433/DBCURSO
-    username: dinamo
-    password: dinamo
+    username: usrCurso
+    password: Anitalavalatina9=
   driverClassName: net.sourceforge.jtds.jdbc.Driver
 
   jpa:
