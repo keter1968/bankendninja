@@ -1,0 +1,93 @@
+/**
+ * Copyright 2017, Banco Colpatria Multibanca Colpatria S.A.
+ * Digital Factory - Colpatria
+ * http://www.colpatria.com
+ *
+ * All rights reserved
+ * Date: 27/12/2017
+ */
+package com.udemy.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * Comment
+ *
+ * @author <a href="mendezi@colpatria.com">Ivan Alejandro Mendez Suarez</a>
+ * @version 3.0.0
+ * @since 27/12/2017
+ */
+
+@Entity
+@Table(name = "contact")
+public class Contact {
+
+  @Id
+  @GeneratedValue
+  @Column(name = "id")
+  private int id;
+
+  @Column(name = "firstname")
+  private String firstname;
+  @Column(name = "lastname")
+  private String lastname;
+  @Column(name = "telephone")
+  private String telephone;
+  @Column(name = "city")
+  private String city;
+
+  public Contact() {
+  }
+
+  public Contact(int id, String firstname, String lastname, String telephone, String city) {
+    this.id = id;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.telephone = telephone;
+    this.city = city;
+  }
+
+  public String getFirstname() {
+    return firstname;
+  }
+
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
+
+  public String getLastname() {
+    return lastname;
+  }
+
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
+  }
+
+  public String getTelephone() {
+    return telephone;
+  }
+
+  public void setTelephone(String telephone) {
+    this.telephone = telephone;
+  }
+
+  public String getCity() {
+    return city;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  }
+}
