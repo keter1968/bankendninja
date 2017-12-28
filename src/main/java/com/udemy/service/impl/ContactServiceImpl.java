@@ -50,9 +50,27 @@ public class ContactServiceImpl implements ContactService {
 
     List<Contact> contacts = contactRepository.findAll();
     List<ContactModel> contactModels = new ArrayList<ContactModel>();
-    for (Contact contact: contacts) {
+    for (Contact contact : contacts) {
       contactModels.add(contactConverter.convertContact2ContactModel(contact));
     }
     return contactModels;
+  }
+
+  @Override
+  public Contact findById(int id) {
+    return contactRepository.findById(id);
+  }
+
+  @Override
+  public ContactModel findByIdModel(int id) {
+    return contactConverter.convertContact2ContactModel(findById(id));
+  }
+
+  @Override
+  public void removeContact(int id) {
+    Contact contact = findById(id);
+    if (null != contact) {
+      contactRepository.delete(contact);
+    }
   }
 }

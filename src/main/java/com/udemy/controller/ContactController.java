@@ -9,6 +9,7 @@
 package com.udemy.controller;
 
 import com.udemy.constant.ViewConstant;
+import com.udemy.entity.Contact;
 import com.udemy.model.ContactModel;
 import com.udemy.service.ContactService;
 import org.apache.commons.logging.Log;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -47,9 +49,12 @@ public class ContactController {
   }
 
   @GetMapping("/contactform")
-  public String redirectContactForm(Model model) {
-
-    model.addAttribute("contactModel", new ContactModel());
+  public String redirectContactForm(@RequestParam(name = "id", required = false) int id, Model model) {
+    ContactModel contactModel = new ContactModel();
+    if (id != 0) {
+      contactModel = contactService.findByIdModel(id);
+    }
+    model.addAttribute("contactModel", contactModel);
     return ViewConstant.CONTACT_FORM;
   }
 
@@ -72,5 +77,11 @@ public class ContactController {
     mav.addObject("contacts", contactService.listAllContacts());
 
     return mav;
+  }
+
+  @GetMapping("/removecontact")
+  private ModelAndView removeContact(@RequestParam(name = "id", required = true) int id) {
+    contactService.removeContact(id);
+    return showContacts();
   }
 }

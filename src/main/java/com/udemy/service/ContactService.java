@@ -8,6 +8,7 @@
  */
 package com.udemy.service;
 
+import com.udemy.entity.Contact;
 import com.udemy.model.ContactModel;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -25,4 +26,10 @@ public interface ContactService {
   public abstract ContactModel addContact(ContactModel contactModel);
 
   public abstract List<ContactModel> listAllContacts();
+
+  public abstract Contact findById(int id);
+
+  public abstract void  removeContact(int id);
+
+  public abstract ContactModel findByIdModel(int id);
 }

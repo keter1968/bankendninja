@@ -24,4 +24,5 @@ import org.springframework.stereotype.Repository;
 @Repository("contactRepository")
 public interface ContactRepository  extends JpaRepository<Contact, Serializable> {
 
+  public abstract Contact findById(int id);
 }
