@@ -8,10 +8,17 @@
  */
 package com.udemy.component;
 
+import com.udemy.repository.LogRepository;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -25,6 +32,10 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component("requestTimeInterceptor")
 public class RequestTimeInterceptor extends HandlerInterceptorAdapter {
+
+  @Autowired
+  @Qualifier("logRepository")
+  private LogRepository logRepository;
 
   private static final Log LOG = LogFactory.getLog(RequestTimeInterceptor.class);
 
@@ -40,6 +51,15 @@ public class RequestTimeInterceptor extends HandlerInterceptorAdapter {
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
     super.afterCompletion(request, response, handler, ex);
     long startTime = (long) request.getAttribute("startTime");
-    LOG.info("URL to: '" + request.getRequestURL().toString() + "' in '" + (System.currentTimeMillis() - startTime) + "'ms");
+    String url = request.getRequestURL().toString();
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = "";
+    if (authentication != null && authentication.isAuthenticated()) {
+      username = authentication.getName();
+    }
+
+    logRepository.save(new com.udemy.entity.Log(new Date(), authentication.getDetails().toString(), username, url));
+    LOG.info("URL to: '" + url + "' in '" + (System.currentTimeMillis() - startTime) + "'ms");
   }
 }
